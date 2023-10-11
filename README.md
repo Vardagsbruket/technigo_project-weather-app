@@ -1,13 +1,15 @@
-# Weather App
+# project-weather
 
-Replace this readme with your own information about your project.
+# A project by Lina Andersson & Diana Undén
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+**Requirements**
 
-## The problem
+# ✓ You should fetch data from the API using `fetch()` in JavaScript
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+# ✓ All data in the sketch above should be present and fetched from the API
 
-## View it live
+# ✓ The presentation of the data should be in the specified format.
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+# ✓ The page should work on mobile (mobile first!), tablet and desktop (Be responsive)
+
+# ✓ Follow the [instructions](https://github.com/Technigo/project-weather-app/blob/master/instructions.md). If you work in pairs, steps 1 & 2 should be done together, and step 3 should be done in branches
