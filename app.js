@@ -22,21 +22,25 @@ const callApiCurrent = () =>
       const temperature = data.main.temp.toFixed(1);
       const description = data.weather[0].description;
       const iconCode = data.weather[0].icon; // Icon code from the API
-
+      const name = data.name;
       // Construct the icon URL
       const iconURL = getWeatherIconURL(iconCode);
 
-      const name = data.name;
 
       container.innerHTML = `
+      <div id="searchBar"></div>
       <div>
         <h2 class="temp">${temperature}°C</h2>
         <h1 class="cityName">${name}</h1>
         <div class="desc"><p>${description}</p><img src="${iconURL}" 
         alt="weather icon" class="img-icon"></div>
       </div>
+      <div>
+      <div class="gridForecast">
+      
+      </div>
         `;
-
+      //Forecast displays day, temp, icon, wind
     })
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
