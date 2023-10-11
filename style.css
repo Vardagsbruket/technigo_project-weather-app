@@ -1,0 +1,24 @@
+body {
+  background-color: rgb(2, 0, 36);
+  color: snow;
+}
+
+.desc {
+  background-color: rgb(72, 43, 43);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.img-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.temp {
+  font-size: 60px;
+}
+
+.cityName {
+  font-size: 20px;
+}
