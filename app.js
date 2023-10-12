@@ -67,8 +67,11 @@ const fetchForecast = () =>
 
       filteredFore.forEach(foreItem => {
         const temperature = foreItem.main.temp.toFixed(1);
+        const temperatureFahr = foreItem.main.temp;
         const iconCode = foreItem.weather[0].icon; // Get icon code from foreItem
-
+        const tempMax = foreItem.main.temp_max.toFixed();
+        const tempMin = foreItem.main.temp_min.toFixed();
+        console.log(foreItem.main)
         // Construct the icon URL
         const iconURL = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -77,7 +80,7 @@ const fetchForecast = () =>
         <p>Mon</p>
         <img src="${iconURL}" alt="weather icon" class="img-icon">
         <div class="desc">
-        <h2 class="temp">${temperature}°  / ${temperature} °C</h2>
+        <h2 class="temp">${tempMax}°  / ${tempMin} °C</h2>
         </div>
       </div>`;
       });
