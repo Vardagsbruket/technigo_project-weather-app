@@ -1,13 +1,15 @@
 const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
-const lat = 59.333831; // Stockholm
-const lon = 17.980385; // Stockholm
-const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+//const lat = 59.333831; Not needed when the url is Stockholm
+//const lon = 17.980385; -"-
+//const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`; //url for Stockholm
 const container = document.getElementById("container");
 
 // Function to get weather icon URL
 function getWeatherIconURL(iconCode) {
   return `https://openweathermap.org/img/wn/${iconCode}.png`;
 }
+
 
 const callApiCurrent = () =>
   fetch(URL)
@@ -23,10 +25,13 @@ const callApiCurrent = () =>
       const description = data.weather[0].description;
       const iconCode = data.weather[0].icon; // Icon code from the API
       const name = data.name;
+      const sunrise = data.sys.sunrise;
+      const sunset = data.sys.sunset;
       // Construct the icon URL
       const iconURL = getWeatherIconURL(iconCode);
 
 
+      //Weather dashboard
       container.innerHTML = `
       <div id="searchBar"></div>
       <div>
@@ -36,8 +41,8 @@ const callApiCurrent = () =>
         alt="weather icon" class="img-icon"></div>
       </div>
       <div class="sunriseSunset">
-        <p class="sunrise">sunrise</p>
-        <p class="sunset">sunset</p>
+        <p class="sunrise">sunrise ${sunrise}</p>
+        <p class="sunset">sunset ${sunset}</p>
       </div>
       <div class="gridForecast">
       
