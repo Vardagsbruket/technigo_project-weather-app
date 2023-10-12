@@ -25,8 +25,29 @@ const callApiCurrent = () =>
       const description = data.weather[0].description;
       const iconCode = data.weather[0].icon; // Icon code from the API
       const name = data.name;
-      const sunrise = data.sys.sunrise;
-      const sunset = data.sys.sunset;
+
+      const sunriseUnix = data.sys.sunrise;
+      const sunsetUnix = data.sys.sunset;
+      const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
+
+      let timezoneHours = (timezone/3600);
+      
+
+      let sunriseDate = new Date(sunriseUnix * 1000);
+      let sunriseHour = sunriseDate.getUTCHours();
+      let sunriseHourAdjusted = (sunriseHour + timezoneHours);
+      let sunriseMinutes = sunriseDate.getUTCMinutes();
+
+      let sunsetDate = new Date(sunsetUnix*1000);
+      let sunsetHour = sunsetDate.getUTCHours();
+      let sunsetHourAdjusted = (sunsetHour + timezoneHours);
+      let sunsetMinutes = sunsetDate.getUTCMinutes();
+      
+      console.log(sunsetDate);
+      console.log(sunsetHour);
+      console.log(`Sunset Stockholm ${sunsetHourAdjusted}`);
+
+
       // Construct the icon URL
       const iconURL = getWeatherIconURL(iconCode);
 
@@ -41,8 +62,8 @@ const callApiCurrent = () =>
         alt="weather icon" class="img-icon"></div>
       </div>
       <div class="sunriseSunset">
-        <p class="sunrise">sunrise ${sunrise}</p>
-        <p class="sunset">sunset ${sunset}</p>
+        <p class="sunrise">sunrise ${sunriseHourAdjusted}:${sunriseMinutes}</p>
+        <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
       <div class="gridForecast">
       
