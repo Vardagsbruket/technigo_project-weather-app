@@ -35,7 +35,10 @@ const callApiCurrent = () =>
         <div class="desc"><p>${description}</p><img src="${iconURL}" 
         alt="weather icon" class="img-icon"></div>
       </div>
-      <div>
+      <div class="sunriseSunset">
+        <p class="sunrise">sunrise</p>
+        <p class="sunset">sunset</p>
+      </div>
       <div class="gridForecast">
       
       </div>
