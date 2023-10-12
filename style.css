@@ -1,33 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+
 body {
-  background-color: rgb(2, 0, 36);
-  color: snow;
+  background: rgb(133, 137, 255);
+  background: linear-gradient(150deg, rgba(133, 137, 255, 1) 0%, rgba(232, 233, 255, 1) 94%);
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
 }
 
-.desc {
-  background-color: rgb(72, 43, 43);
+
+.container {
+
+  .desc {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 120px;
+    /* line-height: 25.78px; */
+  }
+
+  .img-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .temp {
+    font-weight: 300;
+    font-size: 120px;
+    /* line-height: 140.63px; */
+  }
+
+  .cityName {
+    font-size: 34px;
+    /* line-height: 39.84px; */
+    font-weight: 300;
+  }
+}
+
+
+.forecast-content {
+  background-color: rgb(249, 249, 249);
+  color: rgba(112, 112, 112, 1);
+  padding: 2rem;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+
+.forecast-item {
   display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.img-icon {
-  width: 4rem;
-  height: 4rem;
+  margin-bottom: 20px;
+  justify-content: space-evenly;
+  /* Add some spacing between forecast items */
 }
 
 .temp {
-  font-size: 60px;
+  font-weight: 400;
 }
 
-.cityName {
-  font-size: 20px;
+.desc {
+  font-size: 14px;
 }
 
-/* Forecast */
-
-.gridForecast {
-  display: grid;
-  background-color: aquamarine;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-columns: repeat(4, 1fr);
+.img-icon {
+  width: 50px;
+  height: 50px;
 }
