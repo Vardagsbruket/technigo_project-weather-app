@@ -5,11 +5,11 @@ body {
   background: linear-gradient(150deg, rgba(133, 137, 255, 1) 0%, rgba(232, 233, 255, 1) 94%);
   color: rgb(255, 255, 255);
   font-family: 'Roboto', sans-serif;
+  padding: 2rem;
+  background-repeat: no-repeat;
 }
 
-
-.container {
-
+.weather-container {
   .desc {
     display: flex;
     gap: 10px;
