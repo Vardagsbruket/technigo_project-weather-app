@@ -41,24 +41,24 @@ const callApiCurrent = () =>
       const sunsetUnix = data.sys.sunset;
       const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
 
-      
-      let timezoneHours = (timezone/3600);
+
+      let timezoneHours = (timezone / 3600);
 
       let sunriseDate = new Date(sunriseUnix * 1000);
       let sunriseHour = sunriseDate.getUTCHours();
       let sunriseHourAdjusted = (sunriseHour + timezoneHours);
       let sunriseMinutes = sunriseDate.getUTCMinutes();
 
-      let sunsetDate = new Date(sunsetUnix*1000);
+      let sunsetDate = new Date(sunsetUnix * 1000);
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
       let sunsetMinutes = sunsetDate.getUTCMinutes();
-      
+
       const degrees = new Intl.NumberFormat('en-US', {
         style: 'unit',
         unit: 'celsius',
       });
-      
+
       //Weather dashboard
       containerWeather.innerHTML = `
         <div id="searchBar"></div >
