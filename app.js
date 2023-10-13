@@ -52,22 +52,28 @@ const callApiCurrent = () =>
       let sunsetDate = new Date(sunsetUnix*1000);
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
-      let sunsetMinutes = sunsetDate.getUTCMinutes();  
+      let sunsetMinutes = sunsetDate.getUTCMinutes();
+      
+      const degrees = new Intl.NumberFormat('en-US', {
+        style: 'unit',
+        unit: 'celsius',
+      });
       
       //Weather dashboard
       containerWeather.innerHTML = `
         <div id="searchBar"></div >
           <div>
-            <h2 class="temp">${temperature}°C</h2>
+            <h2 class="temp">${temperature}<sup>°C</sup></h2>
             <h1 class="cityName">${name}</h1>
-            <div class="desc"><p>${description}</p><img src="${iconURL}"
-              alt="weather icon" class="img-icon"></div>
+            <div class="desc">
+              <p class="todaysDesc">${description}</p><img src="${iconURL}"
+              alt="weather icon" class="img-icon">
+            </div>
           </div>
       <div class="sunriseSunset">
         <p class="sunrise">sunrise ${sunriseHourAdjusted}:${sunriseMinutes}</p>
         <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
-      <div class="gridForecast"></div>
       `;
 
     })
