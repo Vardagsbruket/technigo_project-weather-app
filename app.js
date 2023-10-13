@@ -1,8 +1,14 @@
 const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
+
+// const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`;
+const API_FORECAST = `https://api.openweathermap.org/data/2.5/forecast?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`
+const weatherContainer = document.getElementById("weather-container");
+const forecastcontainer = document.getElementById("forecastcontainer");
+
 //const lat = 59.333831; Not needed when the url is Stockholm
 //const lon = 17.980385; -"-
 //const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`; //url for Stockholm
 const container = document.getElementById("container");
 
 // Function to get weather icon URL
@@ -12,7 +18,7 @@ function getWeatherIconURL(iconCode) {
 // Construct the icon URL
 const iconURL = getWeatherIconURL(iconCode);
 
-//Function to get current weather
+// Function for fetching current weather
 const callApiCurrent = () =>
   fetch(URL)
     .then((response) => {
@@ -26,6 +32,9 @@ const callApiCurrent = () =>
       const temperature = data.main.temp.toFixed(1);
       const description = data.weather[0].description;
       const iconCode = data.weather[0].icon; // Icon code from the API
+
+      // Construct the icon URL
+      const iconURL = getWeatherIconURL(iconCode);
       const name = data.name;
 
       //Data for sunrise & sunset times
@@ -33,6 +42,7 @@ const callApiCurrent = () =>
       const sunsetUnix = data.sys.sunset;
       const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
 
+      weatherContainer.innerHTML = `
       let timezoneHours = (timezone/3600);
 
       let sunriseDate = new Date(sunriseUnix * 1000);
@@ -44,30 +54,75 @@ const callApiCurrent = () =>
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
       let sunsetMinutes = sunsetDate.getUTCMinutes();  
-
+      `;
       //Weather dashboard
       container.innerHTML = `
-      <div id="searchBar"></div>
-      <div>
-        <h2 class="temp">${temperature}°C</h2>
-        <h1 class="cityName">${name}</h1>
-        <div class="desc"><p>${description}</p><img src="${iconURL}" 
-        alt="weather icon" class="img-icon"></div>
-      </div>
+        < div id = "searchBar" ></div >
+          <div>
+            <h2 class="temp">${temperature}°C</h2>
+            <h1 class="cityName">${name}</h1>
+            <div class="desc"><p>${description}</p><img src="${iconURL}"
+              alt="weather icon" class="img-icon"></div>
+          </div>
       <div class="sunriseSunset">
         <p class="sunrise">sunrise ${sunriseHourAdjusted}:${sunriseMinutes}</p>
         <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
       <div class="gridForecast">
-      
+
       </div>
-        `;
-      //Forecast displays day, temp, icon, wind
+      `;
+
     })
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
-      container.innerText = `Error: ${error.message}`;
+      weatherContainer.innerText = `Error: ${error.message} `;
       console.error("Fetch error:", error);
     });
 
 callApiCurrent();
+
+
+// Function for fetching forecast weather
+const fetchForecast = () =>
+  fetch(API_FORECAST)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json(); // Parse response as JSON
+    })
+    .then((data) => {
+      const filteredFore = data.list.filter((foreItem) => foreItem.dt_txt.includes("12:00:00"));
+      let forecastContent = '<div class="forecast-content">';
+
+      filteredFore.forEach(foreItem => {
+        const temperature = foreItem.main.temp.toFixed(1);
+        const temperatureFahr = foreItem.main.temp;
+        const iconCode = foreItem.weather[0].icon; // Get icon code from foreItem
+        const tempMax = foreItem.main.temp_max.toFixed();
+        const tempMin = foreItem.main.temp_min.toFixed();
+        console.log(foreItem.main)
+        // Construct the icon URL
+        const iconURL = `https://openweathermap.org/img/wn/${iconCode}.png`;
+
+        forecastContent += `
+        <div class="forecast-item">
+        <p>Mon</p>
+        <img src="${iconURL}" alt="weather icon" class="img-icon">
+        <div class="desc">
+        <h2 class="temp">${tempMax}° / ${tempMin} °C</h2>
+        </div>
+      </div>`;
+      });
+
+      forecastContainer.innerHTML = forecastContent;
+    })
+    .catch((error) => {
+      // Handle errors, such as network issues or invalid responses
+      forecastcontainer.innerText = `Error: ${error.message}`;
+      console.error("Fetch error:", error);
+    });
+
+fetchForecast();
+
