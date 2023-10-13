@@ -22,7 +22,11 @@ body {
 .cityName {
   font-size: 20px;
 }
-
+/* Sunrise & sunset*/
+.sunriseSunset {
+  display: flex;
+  gap: 20px;
+}
 /* Forecast */
 
 .gridForecast {
