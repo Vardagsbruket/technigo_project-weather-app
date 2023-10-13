@@ -68,5 +68,12 @@ body {
   /* Change the color as needed */
 
   /* Change the color as needed */
+  /* Sunrise & sunset*/
+  .sunriseSunset {
+    display: flex;
+    gap: 20px;
+  }
+
+  /* Forecast */
 
 }
