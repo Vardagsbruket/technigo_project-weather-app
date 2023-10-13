@@ -43,7 +43,6 @@ const callApiCurrent = () =>
 
 
       let timezoneHours = (timezone / 3600);
-
       let sunriseDate = new Date(sunriseUnix * 1000);
       let sunriseHour = sunriseDate.getUTCHours();
       let sunriseHourAdjusted = (sunriseHour + timezoneHours);
@@ -53,6 +52,7 @@ const callApiCurrent = () =>
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
       let sunsetMinutes = sunsetDate.getUTCMinutes();
+
 
       const degrees = new Intl.NumberFormat('en-US', {
         style: 'unit',
@@ -64,6 +64,7 @@ const callApiCurrent = () =>
         <div id="searchBar"></div >
           <div>
             <h2 class="temp">${temperature}<sup>°C</sup></h2>
+            <img src="">
             <h1 class="cityName">${name}</h1>
             <div class="desc">
               <p class="todaysDesc">${description}</p><img src="${iconURL}"
@@ -85,6 +86,11 @@ const callApiCurrent = () =>
 
 callApiCurrent();
 
+// Function to get the full weekday name from a date
+function getFullWeekday(date) {
+  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  return weekdays[date.getDay()];
+}
 
 // Function for fetching forecast weather
 const fetchForecast = () =>
@@ -100,21 +106,23 @@ const fetchForecast = () =>
       let forecastContent = '<div class="forecast-content">';
 
       filteredFore.forEach(foreItem => {
-        const temperature = foreItem.main.temp.toFixed(1);
-        const temperatureFahr = foreItem.main.temp;
+        // const temperature = foreItem.main.temp.toFixed(1);
+        // const temperatureFahr = foreItem.main.temp;
         const iconCode = foreItem.weather[0].icon; // Get icon code from foreItem
         const tempMax = foreItem.main.temp_max.toFixed();
         const tempMin = foreItem.main.temp_min.toFixed();
+        const forecastDate = new Date(foreItem.dt * 1000); // Convert the timestamp to a Date object
+        const weekdayName = getFullWeekday(forecastDate);
         console.log(foreItem.main)
         // Construct the icon URL
         const iconURL = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
         forecastContent += `
         <div class="forecast-item">
-        <p>Mon</p>
+    <p>${weekdayName}</p>
         <img src="${iconURL}" alt="weather icon" class="img-icon">
         <div class="desc">
-        <h2 class="temp">${tempMax}° / ${tempMin} °C</h2>
+        <p class="temp">${tempMax}°C</p>
         </div>
       </div>`;
       });
