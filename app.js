@@ -3,20 +3,19 @@ const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
 // const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`;
 const API_FORECAST = `https://api.openweathermap.org/data/2.5/forecast?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`
-const weatherContainer = document.getElementById("weather-container");
-const forecastcontainer = document.getElementById("forecastcontainer");
+const containerWeather = document.getElementById("containerWeather");
+const containerForecast = document.getElementById("containerForecast");
 
 //const lat = 59.333831; Not needed when the url is Stockholm
 //const lon = 17.980385; -"-
 //const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-const container = document.getElementById("container");
+//const container = document.getElementById("containerMain");
 
 // Function to get weather icon URL
 function getWeatherIconURL(iconCode) {
   return `https://openweathermap.org/img/wn/${iconCode}.png`;
 }
-// Construct the icon URL
-const iconURL = getWeatherIconURL(iconCode);
+
 
 // Function for fetching current weather
 const callApiCurrent = () =>
@@ -42,7 +41,7 @@ const callApiCurrent = () =>
       const sunsetUnix = data.sys.sunset;
       const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
 
-      weatherContainer.innerHTML = `
+      
       let timezoneHours = (timezone/3600);
 
       let sunriseDate = new Date(sunriseUnix * 1000);
@@ -54,10 +53,10 @@ const callApiCurrent = () =>
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
       let sunsetMinutes = sunsetDate.getUTCMinutes();  
-      `;
+      
       //Weather dashboard
-      container.innerHTML = `
-        < div id = "searchBar" ></div >
+      containerWeather.innerHTML = `
+        <div id="searchBar"></div >
           <div>
             <h2 class="temp">${temperature}°C</h2>
             <h1 class="cityName">${name}</h1>
@@ -68,15 +67,13 @@ const callApiCurrent = () =>
         <p class="sunrise">sunrise ${sunriseHourAdjusted}:${sunriseMinutes}</p>
         <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
-      <div class="gridForecast">
-
-      </div>
+      <div class="gridForecast"></div>
       `;
 
     })
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
-      weatherContainer.innerText = `Error: ${error.message} `;
+      containerWeather.innerText = `Error: ${error.message} `;
       console.error("Fetch error:", error);
     });
 
@@ -116,11 +113,11 @@ const fetchForecast = () =>
       </div>`;
       });
 
-      forecastContainer.innerHTML = forecastContent;
+      containerForecast.innerHTML = forecastContent;
     })
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
-      forecastcontainer.innerText = `Error: ${error.message}`;
+      containerForecast.innerText = `Error: ${error.message}`;
       console.error("Fetch error:", error);
     });
 
