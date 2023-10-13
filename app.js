@@ -9,8 +9,10 @@ const container = document.getElementById("container");
 function getWeatherIconURL(iconCode) {
   return `https://openweathermap.org/img/wn/${iconCode}.png`;
 }
+// Construct the icon URL
+const iconURL = getWeatherIconURL(iconCode);
 
-
+//Function to get current weather
 const callApiCurrent = () =>
   fetch(URL)
     .then((response) => {
@@ -26,12 +28,12 @@ const callApiCurrent = () =>
       const iconCode = data.weather[0].icon; // Icon code from the API
       const name = data.name;
 
+      //Data for sunrise & sunset times
       const sunriseUnix = data.sys.sunrise;
       const sunsetUnix = data.sys.sunset;
       const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
 
       let timezoneHours = (timezone/3600);
-      
 
       let sunriseDate = new Date(sunriseUnix * 1000);
       let sunriseHour = sunriseDate.getUTCHours();
@@ -41,16 +43,7 @@ const callApiCurrent = () =>
       let sunsetDate = new Date(sunsetUnix*1000);
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
-      let sunsetMinutes = sunsetDate.getUTCMinutes();
-      
-      console.log(sunsetDate);
-      console.log(sunsetHour);
-      console.log(`Sunset Stockholm ${sunsetHourAdjusted}`);
-
-
-      // Construct the icon URL
-      const iconURL = getWeatherIconURL(iconCode);
-
+      let sunsetMinutes = sunsetDate.getUTCMinutes();  
 
       //Weather dashboard
       container.innerHTML = `
