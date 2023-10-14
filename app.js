@@ -1,3 +1,4 @@
+
 const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
 
 // const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
@@ -53,18 +54,18 @@ const callApiCurrent = () =>
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
       let sunsetMinutes = sunsetDate.getUTCMinutes();
 
-
       const degrees = new Intl.NumberFormat('en-US', {
         style: 'unit',
         unit: 'celsius',
       });
+
+
 
       //Weather dashboard
       containerWeather.innerHTML = `
         <div id="searchBar"></div >
           <div>
             <h2 class="temp">${temperature}<sup>°C</sup></h2>
-            <img src="">
             <h1 class="cityName">${name}</h1>
             <div class="desc">
               <p class="todaysDesc">${description}</p><img src="${iconURL}"
