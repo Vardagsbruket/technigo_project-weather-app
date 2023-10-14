@@ -91,7 +91,6 @@ const callApiCurrent = (url) =>
 
       //Weather dashboard
       containerWeather.innerHTML = `
-        
           <div>
             <h2 class="temp">${temperature}<sup>°C</sup></h2>
             <h1 class="cityName">${name}</h1>
@@ -105,7 +104,11 @@ const callApiCurrent = (url) =>
         <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
       `;
+      containerLargeIcon.innerHTML = `
+      <img src="${iconURL}" alt="weather icon" class="largeIcon">
+      `;
     })
+      
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
       containerWeather.innerHTML = `
