@@ -1,3 +1,4 @@
+
 const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
 
 // const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
@@ -41,24 +42,25 @@ const callApiCurrent = () =>
       const sunsetUnix = data.sys.sunset;
       const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
 
-      
-      let timezoneHours = (timezone/3600);
 
+      let timezoneHours = (timezone / 3600);
       let sunriseDate = new Date(sunriseUnix * 1000);
       let sunriseHour = sunriseDate.getUTCHours();
       let sunriseHourAdjusted = (sunriseHour + timezoneHours);
       let sunriseMinutes = sunriseDate.getUTCMinutes();
 
-      let sunsetDate = new Date(sunsetUnix*1000);
+      let sunsetDate = new Date(sunsetUnix * 1000);
       let sunsetHour = sunsetDate.getUTCHours();
       let sunsetHourAdjusted = (sunsetHour + timezoneHours);
       let sunsetMinutes = sunsetDate.getUTCMinutes();
-      
+
       const degrees = new Intl.NumberFormat('en-US', {
         style: 'unit',
         unit: 'celsius',
       });
-      
+
+
+
       //Weather dashboard
       containerWeather.innerHTML = `
         <div id="searchBar"></div >
@@ -85,6 +87,11 @@ const callApiCurrent = () =>
 
 callApiCurrent();
 
+// Function to get the full weekday name from a date
+function getFullWeekday(date) {
+  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  return weekdays[date.getDay()];
+}
 
 // Function for fetching forecast weather
 const fetchForecast = () =>
@@ -100,21 +107,23 @@ const fetchForecast = () =>
       let forecastContent = '<div class="forecast-content">';
 
       filteredFore.forEach(foreItem => {
-        const temperature = foreItem.main.temp.toFixed(1);
-        const temperatureFahr = foreItem.main.temp;
+        // const temperature = foreItem.main.temp.toFixed(1);
+        // const temperatureFahr = foreItem.main.temp;
         const iconCode = foreItem.weather[0].icon; // Get icon code from foreItem
         const tempMax = foreItem.main.temp_max.toFixed();
         const tempMin = foreItem.main.temp_min.toFixed();
+        const forecastDate = new Date(foreItem.dt * 1000); // Convert the timestamp to a Date object
+        const weekdayName = getFullWeekday(forecastDate);
         console.log(foreItem.main)
         // Construct the icon URL
         const iconURL = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
         forecastContent += `
         <div class="forecast-item">
-        <p>Mon</p>
+    <p>${weekdayName}</p>
         <img src="${iconURL}" alt="weather icon" class="img-icon">
         <div class="desc">
-        <h2 class="temp">${tempMax}° / ${tempMin} °C</h2>
+        <p class="temp">${tempMax}°C</p>
         </div>
       </div>`;
       });
