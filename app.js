@@ -1,15 +1,28 @@
 const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
 
+//const lat = 59.333831; Not needed when the url is Stockholm
+//const lon = 17.980385; -"-
 // const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
 const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`;
 const API_FORECAST = `https://api.openweathermap.org/data/2.5/forecast?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`
 const containerWeather = document.getElementById("containerWeather");
 const containerForecast = document.getElementById("containerForecast");
 
-//const lat = 59.333831; Not needed when the url is Stockholm
-//const lon = 17.980385; -"-
-//const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-//const container = document.getElementById("containerMain");
+/* Search Bar - NOT working*/
+const searchBar = document.getElementById("searchBar");
+
+searchBar.addEventListener("keyup", e => {
+  const searchString = e.target.value.toLowerCase();
+  console.log(searchString);
+});
+
+function getUrlFromSearch(searchString) {
+  return `https://api.openweathermap.org/data/2.5/weather?q=${searchString}&units=metric&APPID=${apiKey}`;
+};
+
+//const searchUrl = getUrlFromSearch(searchString);
+
 
 // Function to get weather icon URL
 function getWeatherIconURL(iconCode) {
@@ -59,6 +72,8 @@ const callApiCurrent = () =>
         unit: 'celsius',
       });
       
+
+
       //Weather dashboard
       containerWeather.innerHTML = `
         <div id="searchBar"></div >
