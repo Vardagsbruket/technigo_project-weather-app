@@ -6,6 +6,7 @@ const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&
 const API_FORECAST = `https://api.openweathermap.org/data/2.5/forecast?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`
 const containerWeather = document.getElementById("containerWeather");
 const containerForecast = document.getElementById("containerForecast");
+const containerTop = document.getElementById("containerTop")
 
 //const lat = 59.333831; Not needed when the url is Stockholm
 //const lon = 17.980385; -"-
@@ -67,11 +68,11 @@ const callApiCurrent = () =>
       });
 
       /* calling the change color depending on temp function */
-      containerWeather.className = changeColor(temperature);
+      containerTop.className = changeColor(temperature);
 
       //Weather dashboard
       containerWeather.innerHTML = `
-        <div id="searchBar"></div >
+        
           <div>
             <h2 class="temp">${temperature}<sup>°C</sup></h2>
             <h1 class="cityName">${name}</h1>
