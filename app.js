@@ -1,34 +1,54 @@
-
 const apiKey = "d5d4f3f8cd1c728d53bc3cc2ba50620a";
 
 // const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 const URL = `https://api.openweathermap.org/data/2.5/weather?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`;
-const API_FORECAST = `https://api.openweathermap.org/data/2.5/forecast?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`
+const API_FORECAST = `https://api.openweathermap.org/data/2.5/forecast?q=Stockholm,Sweden&units=metric&APPID=${apiKey}`;
 const containerWeather = document.getElementById("containerWeather");
 const containerForecast = document.getElementById("containerForecast");
-const containerTop = document.getElementById("containerTop")
+const containerTop = document.getElementById("containerTop");
 
 //const lat = 59.333831; Not needed when the url is Stockholm
 //const lon = 17.980385; -"-
 //const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 //const container = document.getElementById("containerMain");
 
+const searchBar = document.getElementById("searchBar");
+
+const getSearchUrl = (searchString) => {
+  return `https://api.openweathermap.org/data/2.5/weather?q=${searchString}&units=metric&APPID=${apiKey}`;
+};
+const getForecastUrl = (searchString) => {
+  return `https://api.openweathermap.org/data/2.5/forecast?q=${searchString}&units=metric&APPID=${apiKey}`;
+};
+
+searchBar.addEventListener("keyup", (e) => {
+  const searchString = e.target.value.toLowerCase();
+  console.log(searchString);
+  const searchUrl = getSearchUrl(searchString);
+  callApiCurrent(searchUrl);
+  const forecastUrl = getForecastUrl(searchString);
+  fetchForecast(forecastUrl);
+});
+
 // Function to get weather icon URL
 function getWeatherIconURL(iconCode) {
   return `https://openweathermap.org/img/wn/${iconCode}.png`;
 }
 
-    /*  Function to change color depending on temp*/
+/*  Function to change color depending on temp*/
 const changeColor = (temperature) => {
-  if (temperature <= 9) {return "coldColor"} 
-  else if (temperature <=25) {return "mediumColor"}
-  else {return "hotColor"}
+  if (temperature <= 9) {
+    return "coldColor";
+  } else if (temperature <= 25) {
+    return "mediumColor";
+  } else {
+    return "hotColor";
+  }
 };
 
-
 // Function for fetching current weather
-const callApiCurrent = () =>
-  fetch(URL)
+const callApiCurrent = (url) =>
+  fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -50,21 +70,20 @@ const callApiCurrent = () =>
       const sunsetUnix = data.sys.sunset;
       const timezone = data.timezone; //Omvandla antalet sekunder till timmar och ta sunriseHour + den variablen för att få rätt tid justerad för timezone
 
-
-      let timezoneHours = (timezone / 3600);
+      let timezoneHours = timezone / 3600;
       let sunriseDate = new Date(sunriseUnix * 1000);
       let sunriseHour = sunriseDate.getUTCHours();
-      let sunriseHourAdjusted = (sunriseHour + timezoneHours);
+      let sunriseHourAdjusted = sunriseHour + timezoneHours;
       let sunriseMinutes = sunriseDate.getUTCMinutes();
 
       let sunsetDate = new Date(sunsetUnix * 1000);
       let sunsetHour = sunsetDate.getUTCHours();
-      let sunsetHourAdjusted = (sunsetHour + timezoneHours);
+      let sunsetHourAdjusted = sunsetHour + timezoneHours;
       let sunsetMinutes = sunsetDate.getUTCMinutes();
 
-      const degrees = new Intl.NumberFormat('en-US', {
-        style: 'unit',
-        unit: 'celsius',
+      const degrees = new Intl.NumberFormat("en-US", {
+        style: "unit",
+        unit: "celsius",
       });
 
       /* calling the change color depending on temp function */
@@ -86,31 +105,44 @@ const callApiCurrent = () =>
         <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
       `;
-
     })
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
-      containerWeather.innerText = `Error: ${error.message} `;
+      containerWeather.innerHTML = `
+          <div>
+          <h2 class="temp">--<sup>°C</sup></h2>
+          <h1 class="cityName">City Not Found</h1>
+          <div class="desc">
+            <p class="todaysDesc">Weather Description</p>
+          </div>
+        </div>
+        <div class="sunriseSunset">
+          <p class="sunrise">sunrise time</p>
+          <p class="sunset">sunset time</p>
+        </div>
+      `;
       console.error("Fetch error:", error);
     });
 
-
-    
-    
-
-
-
-callApiCurrent();
+callApiCurrent(URL);
 
 // Function to get the full weekday name from a date
 function getFullWeekday(date) {
-  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   return weekdays[date.getDay()];
 }
 
 // Function for fetching forecast weather
-const fetchForecast = () =>
-  fetch(API_FORECAST)
+const fetchForecast = (url) =>
+  fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -118,10 +150,12 @@ const fetchForecast = () =>
       return response.json(); // Parse response as JSON
     })
     .then((data) => {
-      const filteredFore = data.list.filter((foreItem) => foreItem.dt_txt.includes("12:00:00"));
+      const filteredFore = data.list.filter((foreItem) =>
+        foreItem.dt_txt.includes("12:00:00")
+      );
       let forecastContent = '<div class="forecast-content">';
 
-      filteredFore.forEach(foreItem => {
+      filteredFore.forEach((foreItem) => {
         // const temperature = foreItem.main.temp.toFixed(1);
         // const temperatureFahr = foreItem.main.temp;
         const iconCode = foreItem.weather[0].icon; // Get icon code from foreItem
@@ -129,13 +163,13 @@ const fetchForecast = () =>
         const tempMin = foreItem.main.temp_min.toFixed();
         const forecastDate = new Date(foreItem.dt * 1000); // Convert the timestamp to a Date object
         const weekdayName = getFullWeekday(forecastDate);
-        console.log(foreItem.main)
+        console.log(foreItem.main);
         // Construct the icon URL
         const iconURL = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
         forecastContent += `
         <div class="forecast-item">
-    <p>${weekdayName}</p>
+        <p>${weekdayName}</p>
         <img src="${iconURL}" alt="weather icon" class="img-icon">
         <div class="desc">
         <p class="temp">${tempMax}°C</p>
@@ -147,9 +181,17 @@ const fetchForecast = () =>
     })
     .catch((error) => {
       // Handle errors, such as network issues or invalid responses
-      containerForecast.innerText = `Error: ${error.message}`;
+    
+
+      containerForecast.innerHTML = `
+      <div class="forecast-content">'
+        <div class="forecast-item">
+          <p>Forecast not available</p>
+          <div class="desc">
+          <p class="temp"></p>
+          </div>
+        </div>`;
       console.error("Fetch error:", error);
     });
 
-fetchForecast();
-
+fetchForecast(API_FORECAST);
