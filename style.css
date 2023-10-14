@@ -90,6 +90,16 @@ sup {
 } */
 
 /* Change the color as needed */
+.coldColor {
+  background-color: blue;
+}
+.mediumColor {
+  background-color: green;
+}
+.hotColor {
+  background-color: red;
+}
+
 /* Sunrise & sunset*/
 
 

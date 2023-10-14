@@ -17,6 +17,13 @@ function getWeatherIconURL(iconCode) {
   return `https://openweathermap.org/img/wn/${iconCode}.png`;
 }
 
+    /*  Function to change color depending on temp*/
+const changeColor = (temperature) => {
+  if (temperature <= 9) {return "coldColor"} 
+  else if (temperature <=25) {return "mediumColor"}
+  else {return "hotColor"}
+};
+
 
 // Function for fetching current weather
 const callApiCurrent = () =>
@@ -59,7 +66,8 @@ const callApiCurrent = () =>
         unit: 'celsius',
       });
 
-
+      /* calling the change color depending on temp function */
+      containerWeather.className = changeColor(temperature);
 
       //Weather dashboard
       containerWeather.innerHTML = `
@@ -84,6 +92,12 @@ const callApiCurrent = () =>
       containerWeather.innerText = `Error: ${error.message} `;
       console.error("Fetch error:", error);
     });
+
+
+    
+    
+
+
 
 callApiCurrent();
 
