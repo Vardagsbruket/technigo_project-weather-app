@@ -10,7 +10,7 @@ body {
 #containerMain {
   margin: auto;
   border-radius: 4px;
-  background: rgb(242, 242, 242);
+  background: rgb(226, 217, 217);
   color: rgb(255, 255, 255);
   box-shadow: rgba(80, 80, 80, 0.433) 2px 6px 16px;
   max-width: 1000px;
@@ -111,7 +111,7 @@ input[type=text]:focus{
 
 /* containerForecast */
 .forecast-content {
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(226, 217, 217);
   color: rgba(112, 112, 112, 1);
   padding: 2rem;
   font-size: 20px;
