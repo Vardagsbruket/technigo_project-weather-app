@@ -13,12 +13,11 @@ body {
   background: rgb(242, 242, 242);
   color: rgb(255, 255, 255);
   box-shadow: rgba(80, 80, 80, 0.433) 2px 6px 16px;
-  
-}
-.containerTop {
-  display: flex;
   max-width: 1000px;
   width: 100%;
+}
+#containerTop {
+  
   background: linear-gradient(150deg, rgba(133, 137, 255, 1) 0%, rgba(232, 233, 255, 1) 94%);
 }
 /* SearchBar*/
@@ -30,8 +29,7 @@ body {
   height: 80px;
 }
 input[type=text] {
-  max-width: 400px;
-  width: 100%;  
+  min-width: 400px; 
   height: 35px;
   border: none;
   background: transparent;
@@ -162,13 +160,12 @@ background: linear-gradient(rgba(133, 137, 255,1 ), rgb(193, 194, 246));
 
 /* For tablets and larger screens */
 @media (min-width: 768px) {
-  .containerTop {
+  #containerTop {
     flex-direction: column;
     justify-content: center;
   }
   #searchBar {
-    margin: 2rem 2rem 2rem 0;
-    width: auto;
+    margin: 2rem;
   }
 }
 
@@ -178,7 +175,7 @@ background: linear-gradient(rgba(133, 137, 255,1 ), rgb(193, 194, 246));
     max-width: 1024px;
     width: 100%;
   }
-  .containerTop {
+  #containerTop {
     justify-content: space-between;
   }
   #searchBar {
@@ -190,8 +187,3 @@ background: linear-gradient(rgba(133, 137, 255,1 ), rgb(193, 194, 246));
     justify-content: space-between;
   }
 }
-     
-/* Mobile Screen (Typically smartphones): (max-width: 767px) */
-/*Tablet Screen small (min-width: 768px) and (max-width: 1023px) */
-/*Tablet Screen Landscape Screen  min-width: 1024px) and (max-width: 1279px)*/
-/*Desktop Screen (Typically laptop and desktop monitors) (min-width: 1280px) */
