@@ -18,6 +18,9 @@ body {
 }
 .containerTop {
   display: flex;
+  
+  max-width: 1000px;
+  width: 100%;
 }
 /* SearchBar*/
 #searchBar {
@@ -37,7 +40,11 @@ input[type=text] {
 }
 input[type=text]:focus{
   outline: 1px solid rgb(255, 255, 255);
-  
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }
 ::placeholder {
   color: rgb(255, 255, 255);
@@ -53,11 +60,16 @@ input[type=text]:focus{
 #containerWeather {
   padding: 2rem;
 
-  .desc {
+  .todaysDesc {
     display: flex;
     gap: 10px;
     align-items: center;
-    font-size: 120px;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+  }
+  .desc {
+    display: flex;
   }
 
   .img-icon {
@@ -66,9 +78,17 @@ input[type=text]:focus{
   }
 
   .temp {
-    font-weight: 300;
     font-size: 120px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
   }
+    #sup {
+      font-size: 65px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
 
   .cityName {
     font-size: 34px;
@@ -76,20 +96,16 @@ input[type=text]:focus{
   }
 }
 
-sup {
-  font-size: 50px;
-}
-
-
-
-.todaysDesc {
-  font-size: 30px;
-}
 
 .sunriseSunset {
   display: flex;
-  gap: 20px;
+  gap: 38px;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }
+
 
 .img-icon {
   width: 50px;
@@ -122,17 +138,19 @@ sup {
 .largeIcon {
   max-width: 200px;
   width: 100%;
+  float: right;
 }
 
 /* Change the color as needed */
 .coldColor {
-  background-color: blue;
+  fill: linear-gradient(45deg, #8589FF 50%, #E8E9FF 50%);
+  border-bottom-left-radius: 250px 100px;
 }
 .mediumColor {
-  background-color: green;
+  fill: linear-gradient(45deg, #6ed182 50%, #E8E9FF 50%);
 }
 .hotColor {
-  background-color: red;
+  fill: linear-gradient(45deg, #f0834c 50%, #E8E9FF 50%);
 }
 
 /* Sunrise & sunset*/
@@ -142,6 +160,35 @@ sup {
 
 /* Media queries */
 
+      /* Mobile screen*/
+
+@media screen and (max-width: 767px) {
+  #containerMain {
+    max-width: 750px;
+    width: 100%;
+  }
+}
+      /*Tablet screen small */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #containerMain {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
+      /*Tablet screen Landscape*/
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  #containerMain {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
+      /*Desktop screen*/
+@media screen and (min-width: 1280px) {
+  #containerMain {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
 
 /* Mobile Screen (Typically smartphones): (max-width: 767px) */
 /*Tablet Screen small (min-width: 768px) and (max-width: 1023px) */
