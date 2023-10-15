@@ -92,7 +92,7 @@ const callApiCurrent = (url) =>
       //Weather dashboard
       containerWeather.innerHTML = `
           <div>
-            <h2 class="temp">${temperature}<sup>°C</sup></h2>
+            <h2 class="temp">${temperature}<sup id="sup">°C</sup></h2>
             <h1 class="cityName">${name}</h1>
             <div class="desc">
               <p class="todaysDesc">${description}</p><img src="${iconURL}"
@@ -100,8 +100,10 @@ const callApiCurrent = (url) =>
             </div>
           </div>
       <div class="sunriseSunset">
-        <p class="sunrise">sunrise ${sunriseHourAdjusted}:${sunriseMinutes}</p>
-        <p class="sunset">sunset ${sunsetHourAdjusted}:${sunsetMinutes}</p>
+        <p class="sunrise">sunrise</p>
+        <p class="sunriseTime">${sunriseHourAdjusted}:${sunriseMinutes}</p>
+        <p class="sunset">sunset</p>
+        <p class="sunsetTime">${sunsetHourAdjusted}:${sunsetMinutes}</p>
       </div>
       `;
       containerLargeIcon.innerHTML = `
