@@ -99,12 +99,12 @@ const callApiCurrent = (url) =>
               alt="weather icon" class="img-icon">
             </div>
           </div>
-      <div class="sunriseSunset">
-        <p class="sunrise">sunrise</p>
-        <p class="sunriseTime">${sunriseHourAdjusted}:${sunriseMinutes}</p>
-        <p class="sunset">sunset</p>
-        <p class="sunsetTime">${sunsetHourAdjusted}:${sunsetMinutes}</p>
-      </div>
+          <div class="sunriseSunset">
+            <p class="sunrise">sunrise</p>
+            <p class="sunriseTime">${sunriseHourAdjusted}:${sunriseMinutes}</p>
+            <p class="sunset">sunset</p>
+            <p class="sunsetTime">${sunsetHourAdjusted}:${sunsetMinutes}</p>
+          </div>
       `;
       containerLargeIcon.innerHTML = `
       <img src="${iconURL}" alt="weather icon" class="largeIcon">
