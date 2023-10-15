@@ -157,6 +157,35 @@ background: linear-gradient(rgba(133, 137, 255,1 ), rgb(193, 194, 246));
 
 /* Media queries */
 
+      /* Mobile screen*/
+
+@media screen and (max-width: 767px) {
+  #containerMain {
+    max-width: 750px;
+    width: 100%;
+  }
+}
+      /*Tablet screen small */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  #containerMain {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
+      /*Tablet screen Landscape*/
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  #containerMain {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
+      /*Desktop screen*/
+@media screen and (min-width: 1280px) {
+  #containerMain {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
 
 /* For tablets and larger screens */
 @media (min-width: 768px) {
